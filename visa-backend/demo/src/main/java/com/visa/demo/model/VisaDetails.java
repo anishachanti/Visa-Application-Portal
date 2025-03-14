@@ -1,4 +1,4 @@
-package com.visa.demo.model;
+/*package com.visa.demo.model;
 
 import  jakarta.persistence.*;
 import lombok.*;
@@ -57,6 +57,7 @@ public class VisaDetails {
     }
 
 }
+*/
 
 
 

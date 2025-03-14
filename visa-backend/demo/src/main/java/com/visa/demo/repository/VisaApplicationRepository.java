@@ -1,4 +1,4 @@
-/*package com.visa.demo.repository;
+package com.visa.demo.repository;
 
 import com.visa.demo.model.VisaApplication;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +15,5 @@ public interface VisaApplicationRepository extends JpaRepository<VisaApplication
     List<VisaApplication> findByManagerId(String managerId);
 }
 
- */
+ 
 

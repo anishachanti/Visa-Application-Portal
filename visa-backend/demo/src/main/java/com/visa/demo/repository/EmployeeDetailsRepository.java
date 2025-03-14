@@ -1,4 +1,4 @@
-package com.visa.demo.repository;
+/*package com.visa.demo.repository;
 
 import com.visa.demo.model.EmployeeDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +14,6 @@ public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetails
     @Query("SELECT e FROM EmployeeDetails e WHERE e.reportingManager.empId = :managerId")
     List<EmployeeDetails> findByReportingManager_EmpId(String managerId);
 }
+*/
 
 

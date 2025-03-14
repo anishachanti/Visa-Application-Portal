@@ -1,4 +1,4 @@
-package com.visa.demo.service;
+/*package com.visa.demo.service;
 
 import com.visa.demo.model.EducationDetails;
 import com.visa.demo.repository.EducationDetailsRepository;
@@ -17,5 +17,6 @@ public class EducationDetailsService {
         return educationDetailsRepository.findByEmployee_EmpId(empId);
     }
 }
+*/
 
 

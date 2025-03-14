@@ -1,4 +1,4 @@
-/*package com.visa.demo.model;
+package com.visa.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -221,7 +221,6 @@ public class VisaApplication {
 
 }
 
- */
 
 
 

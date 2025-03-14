@@ -1,4 +1,4 @@
- package com.visa.demo.model;
+/*package com.visa.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -50,6 +50,7 @@ public class EmployeeAddress {
      public void setDoorNo(String doorNo) { this.doorNo = doorNo; }
      public void setLandMark(String landMark) { this.landMark = landMark; }
 }
+*/
 
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+/*import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Container, Card, Modal, Alert } from "react-bootstrap";
 import axios from "axios";
@@ -240,7 +240,7 @@ const VisaAppForm = () => {
                 {errors.passportNo && <p className="text-danger">{errors.passportNo}</p>}
               </Form.Group>
 
-              {/* Passport Dates */}
+           
                             <Form.Group className="mb-3">
                               <Form.Label>Passport Issued Date</Form.Label>
                               <Form.Control type="date" name="passportIssuedDate" value={formData.passportIssuedDate} onChange={handleChange} required />
@@ -338,4 +338,5 @@ const VisaAppForm = () => {
 };
 
 export default VisaAppForm;
+*/
 

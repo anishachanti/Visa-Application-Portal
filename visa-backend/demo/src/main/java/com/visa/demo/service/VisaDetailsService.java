@@ -1,4 +1,4 @@
-package com.visa.demo.service;
+/*package com.visa.demo.service;
 
 import com.visa.demo.model.VisaDetails;
 import com.visa.demo.repository.VisaDetailsRepository;
@@ -17,5 +17,6 @@ public class VisaDetailsService {
         return visaDetailsRepository.findByPassport_PassportNo(passportNo);
     }
 }
+*/
 
 

@@ -1,4 +1,4 @@
-/*package com.visa.demo.repository;
+package com.visa.demo.repository;
 
 import com.visa.demo.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +12,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     boolean existsByReportingManagerId(String reportingManagerId);
 }
 
- */
+
 
 
 

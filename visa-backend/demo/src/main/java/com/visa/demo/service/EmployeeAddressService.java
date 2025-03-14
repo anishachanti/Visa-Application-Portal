@@ -1,4 +1,4 @@
-package com.visa.demo.service;
+/*package com.visa.demo.service;
 
 import com.visa.demo.model.EmployeeAddress;
 import com.visa.demo.repository.EmployeeAddressRepository;
@@ -22,6 +22,7 @@ public class EmployeeAddressService {
         return employeeAddressRepository.findByEmployee_EmpId(empId);
     }
 }
+*/
 
 
 

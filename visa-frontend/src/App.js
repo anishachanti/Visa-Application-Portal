@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Components/Login";
-import Dboard from "./Components/Dboard";
-import VisaAppForm from "./Components/VisaAppForm";
-import RMDashboard from "./Components/RMDashboard";
+import Dashboard from "./Components/Dashboard";
+import VisaApplicationForm from "./Components/VisaApplicationForm";
+import ReportingManagerDashboard from "./Components/ReportingManagerDashboard";
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -15,9 +15,9 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<PrivateRoute><Dboard /></PrivateRoute>} />
-        <Route path="/apply-visa" element={<PrivateRoute><VisaAppForm /></PrivateRoute>} />
-        <Route path="/manager-dashboard" element={<PrivateRoute><RMDashboard /></PrivateRoute>} />
+        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/apply-visa" element={<PrivateRoute><VisaApplicationForm /></PrivateRoute>} />
+        <Route path="/manager-dashboard" element={<PrivateRoute><ReportingManagerDashboard /></PrivateRoute>} /> {/* ✅ Added Manager Dashboard */}
       </Routes>
     </Router>
   );

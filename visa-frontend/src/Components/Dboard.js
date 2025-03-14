@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+/*import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Card, Button, Alert, Row, Col } from "react-bootstrap";
 import axios from "axios";
@@ -44,7 +44,7 @@ const Dboard = () => {
     <>
       <AppNavbar />
       <Container className="mt-4">
-        {/* Buttons for Reporting Manager */}
+       
         {role === "MANAGER" && (
           <Row className="mb-4 justify-content-start">
             <Col xs={12} md={4}>
@@ -70,7 +70,7 @@ const Dboard = () => {
           </Row>
         )}
 
-        {/* Dashboard Card */}
+       
         <Container className="d-flex justify-content-center align-items-center min-vh-50">
           <Card
             style={{
@@ -96,7 +96,7 @@ const Dboard = () => {
                 </p>
               )}
 
-              {/* Employee View: Only Apply for Visa */}
+          
               {role === "EMPLOYEE" && (
                 <Button
                   variant="success"
@@ -116,3 +116,4 @@ const Dboard = () => {
 };
 
 export default Dboard;
+*/

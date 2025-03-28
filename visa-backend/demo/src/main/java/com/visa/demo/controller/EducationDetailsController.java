@@ -1,4 +1,4 @@
-package com.visa.demo.controller;
+/*package com.visa.demo.controller;
 
 import com.visa.demo.model.EducationDetails;
 import com.visa.demo.repository.EducationDetailsRepository;
@@ -28,5 +28,6 @@ public class EducationDetailsController {
         return ResponseEntity.ok(educationDetails);
     }
 }
+*/
 
 

@@ -1,4 +1,4 @@
-package com.visa.demo.controller;
+/*package com.visa.demo.controller;
 
 import com.visa.demo.model.EmployeeDetails;
 import com.visa.demo.model.PassportDetails;
@@ -59,6 +59,7 @@ public class DController {
         return ResponseEntity.ok(employees);
     }
 }
+*/
 
 
 

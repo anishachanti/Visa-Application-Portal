@@ -39,9 +39,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login", "/error","/favicon.ico").permitAll()
-                        .requestMatchers("/api/visa/apply").hasAnyAuthority("EMPLOYEE", "MANAGER")
+                        //.requestMatchers("/api/visa/apply").hasAnyAuthority("EMPLOYEE", "MANAGER", "VISA_TEAM")
                         .requestMatchers("/api/dashboard").authenticated()
-                        .requestMatchers("/api/visa/pending", "/api/visa/{empId}/update-status").hasAuthority("MANAGER")
+                        .requestMatchers("/api/visa/pending", "/api/visa/{empId}/update-status").hasAnyAuthority("MANAGER", "VISA_TEAM")
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Table, Button, Container, Alert, Spinner, Form } from "react-bootstrap";
 import axios from "axios";
 import AppNavbar from "./Navbar";
+import "../styles/dashboardStyles.css";
 
 const ReportingManagerDashboard = () => {
   const [applications, setApplications] = useState([]);
@@ -19,16 +20,22 @@ const ReportingManagerDashboard = () => {
       return;
     }
     fetchApplications();
-  }, [navigate, token]);
+  }, [navigate, token, searchEmpId]);
 
   // ✅ Fetch applications for the logged-in manager
   const fetchApplications = async () => {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.get("http://localhost:9090/api/visa/manager-applications", {
+      const url =
+        searchEmpId.trim() !== ""
+          ? `http://localhost:9090/api/visa/search?empId=${searchEmpId}`
+          : "http://localhost:9090/api/visa/manager-applications";
+
+      const response = await axios.get(url, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
       setApplications(response.data);
     } catch (error) {
       console.error("Error fetching applications:", error);
@@ -37,6 +44,7 @@ const ReportingManagerDashboard = () => {
       setLoading(false);
     }
   };
+
 
   // ✅ Handle Approve/Reject actions
   const handleDecision = async (empId, decision) => {
@@ -67,13 +75,16 @@ const ReportingManagerDashboard = () => {
       <Container className="mt-5">
         <h2 className="text-center text-primary mb-4">Applications Review</h2>
 
-                <Form.Control
-                  type="text"
-                  placeholder="Search by Employee ID"
-                  value={searchEmpId}
-                  onChange={(e) => setSearchEmpId(e.target.value)}
-                  className="mb-3 w-50 mx-auto"
-                />
+                <Form.Group controlId="searchEmpId">
+                  <Form.Label>Search by Employee ID:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Employee ID"
+                    value={searchEmpId}
+                    onChange={(e) => setSearchEmpId(e.target.value)}
+                  />
+                </Form.Group>
+
 
         {error && <Alert variant="danger" className="text-center">{error}</Alert>}
 

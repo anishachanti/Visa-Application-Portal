@@ -1,4 +1,4 @@
-package com.visa.demo.controller;
+/*package com.visa.demo.controller;
 
 import com.visa.demo.model.PassportDetails;
 import com.visa.demo.repository.PassportDetailsRepository;
@@ -33,5 +33,6 @@ public class PassportDetailsController {
         }
     }
 }
+*/
 
 

@@ -1,4 +1,4 @@
-/*package com.visa.demo.config;
+package com.visa.demo.config;
 
 import com.visa.demo.security.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
@@ -82,6 +82,6 @@ public class SecurityConfig {
     }
 }
 
- */
+
 
 

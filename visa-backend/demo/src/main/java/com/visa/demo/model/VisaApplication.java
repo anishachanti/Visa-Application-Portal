@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -87,6 +88,12 @@ public class VisaApplication {
 
     @Column(name = "status", nullable = false, length = 20)
     private String status; // Default status is PENDING
+
+    // ✅ New Field: Date of Approval
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date_approved")
+    private LocalDate dateApproved;
+
 
 
 
@@ -214,12 +221,28 @@ public class VisaApplication {
         this.mastersGPA = mastersGPA;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
 
+    public LocalDate getDateApproved() {
+        return dateApproved;
+    }
+
+    public void setDateApproved(LocalDate dateApproved) {
+        this.dateApproved = dateApproved;
+    }
+
+
+
+
 
 }
+
 
 
 

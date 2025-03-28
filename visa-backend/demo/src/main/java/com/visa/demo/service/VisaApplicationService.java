@@ -6,13 +6,17 @@ import com.visa.demo.repository.EmployeeRepository;
 import com.visa.demo.repository.VisaApplicationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class VisaApplicationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(VisaApplicationService.class);
     private final VisaApplicationRepository visaApplicationRepository;
     private final EmployeeRepository employeeRepository;
     private final EmailService emailService;
@@ -32,6 +36,8 @@ public class VisaApplicationService {
         Optional<Employee> employeeOpt = employeeRepository.findByEmpId(application.getEmpId());
         if (employeeOpt.isPresent()) {
             Employee employee = employeeOpt.get();
+            System.out.println("✅ Visa Application saved for Employee: " + employee.getName());
+
 
             // ✅ Send email to the employee
             emailService.sendEmail(
@@ -61,41 +67,69 @@ public class VisaApplicationService {
 
 
     @Transactional
-    public boolean updateApplicationStatus(String managerId, String empId, String status) {
-        Optional<Employee> employeeOpt = employeeRepository.findByEmpId(empId);
+    public boolean updateApplicationStatus(String loggedInUserId, String empId, String status) {
+        Optional<Employee> loggedInUserOpt = employeeRepository.findByEmpId(loggedInUserId);
 
-        if (employeeOpt.isPresent()) {
-            Employee employee = employeeOpt.get();
-
-            // ✅ Check if the reporting manager ID matches the logged-in manager ID
-            if (employee.getReportingManagerId() == null || !employee.getReportingManagerId().equals(managerId)) {
-                System.out.println("❌ Unauthorized attempt to update status by Manager ID: " + managerId);
-                return false; // Unauthorized action
-            }
-
-            // ✅ Fetch and update the application status
-            Optional<VisaApplication> optionalApplication = visaApplicationRepository.findById(empId);
-            if (optionalApplication.isPresent()) {
-                VisaApplication application = optionalApplication.get();
-                application.setStatus(status);
-                visaApplicationRepository.save(application);
-
-                // ✅ Send email notification to employee
-                emailService.sendEmail(
-                        employee.getEmail(),
-                        "Visa Application " + status,
-                        "Dear " + employee.getName() + ",\n\nYour visa application has been " + status.toLowerCase() + "."
-                );
-
-                return true;
-            }
+        if (loggedInUserOpt.isEmpty()) {
+            return false; // Unauthorized user
         }
 
-        return false;
+        Employee loggedInUser = loggedInUserOpt.get();
+        Optional<Employee> employeeOpt = employeeRepository.findByEmpId(empId);
+        Optional<VisaApplication> visaOpt = visaApplicationRepository.findById(empId);
+
+        if (employeeOpt.isEmpty() || visaOpt.isEmpty()) {
+            return false; // Employee or Visa Application not found
+        }
+
+        Employee employee = employeeOpt.get();
+        VisaApplication visaApplication = visaOpt.get();
+
+        // ✅ Allow both Reporting Managers & Visa Team to update status
+        if (loggedInUser.getEmpId().equals(employee.getReportingManagerId()) ||
+                "VISA_TEAM".equals(loggedInUser.getRole())) {
+
+            visaApplication.setStatus(status);
+
+            /*if ("APPROVED".equalsIgnoreCase(status)) {
+                visaApplication.setDateApproved(LocalDate.now());  // Set current date as approval date
+            } else {
+                visaApplication.setDateApproved(null);  // Reset approval date for other statuses
+            }
+
+             */
+
+            if ("APPROVED".equalsIgnoreCase(status)) {
+                if (visaApplication.getDateApproved() == null) {  // ✅ Only set the date if it's not already set
+                    visaApplication.setDateApproved(LocalDate.now());
+                }
+            }
+// ❌ Do NOT reset the date when status changes (leave it unchanged)
+
+            /*if ("Petition Approved".equalsIgnoreCase(status) || "Petition Rejected".equalsIgnoreCase(status)) {
+                visaApplicationRepository.delete(visaApplication);
+                return true; // ✅ Successfully deleted, no need to save
+            }
+
+             */
+
+
+
+            visaApplicationRepository.save(visaApplication);
+
+            // ✅ Notify the employee about the status change
+            emailService.sendEmail(employee.getEmail(),
+                    "Visa Status Update",
+                    "Dear " + employee.getName() + ",\n\nYour visa application status has been updated to: " + status);
+
+            return true;
+        }
+
+        return false; // Unauthorized action
     }
 }
 
- 
+
 
 
 

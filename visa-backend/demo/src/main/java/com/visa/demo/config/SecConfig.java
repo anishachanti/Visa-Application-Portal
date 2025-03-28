@@ -1,4 +1,4 @@
-package com.visa.demo.config;
+/*package com.visa.demo.config;
 
 import com.visa.demo.security.JAuthFilter;
 import com.visa.demo.service.EmployeeDetailsService;
@@ -87,6 +87,7 @@ public class SecConfig {
         return new BCryptPasswordEncoder();
     }
 }
+*/
 
 
 

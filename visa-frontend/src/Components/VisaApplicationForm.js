@@ -206,37 +206,37 @@ const VisaApplicationForm = () => {
      // ✅ Preparing form data for file upload
       const formDataToSend = new FormData();
       formDataToSend.append(
-        "visaApplication",
-        new Blob(
-          [
-            JSON.stringify({
-              empId: formData.empId,
-              fullName: formData.fullName,
-              surname: formData.surname,
-              dob: formData.dob,
-              passportNumber: formData.passportNumber,
-              nationality: formData.nationality,
-              visaType: formData.visaType,
-              passportIssueDate: formData.passportIssueDate,
-              passportExpiryDate: formData.passportExpiryDate,
-              countryOfBirth: formData.countryOfBirth,
-              cityOfBirth: formData.cityOfBirth,
-              citizenship: formData.citizenship,
-              hasApprovedPetition: formData.hasApprovedPetition,
-              approvedPetitionNumber: formData.approvedPetitionNumber,
-              hasMastersDegree: formData.hasMastersDegree,
-              universityName: formData.universityName,
-              mastersGPA: formData.mastersGPA,
-              mastersCompletionDate: formData.mastersCompletionDate,
-              passportFilePath: `${formData.empId}_${formData.fullName.replace(/\s+/g, "")}.pdf`,
-              degreeFilePath: formData.msDegreeFile
-                ? `${formData.empId}_${formData.fullName.replace(/\s+/g, "")}_MasterDegree.pdf`
-                : null,
-            }),
-          ],
-          { type: "application/json" }
-        )
-      );
+              "visaApplication",
+              new Blob(
+                [
+                  JSON.stringify({
+                    empId: formData.empId,
+                    fullName: formData.fullName,
+                    surname: formData.surname,
+                    dob: formData.dob,
+                    passportNumber: formData.passportNumber,
+                    nationality: formData.nationality,
+                    visaType: formData.visaType,
+                    passportIssueDate: formData.passportIssueDate,
+                    passportExpiryDate: formData.passportExpiryDate,
+                    countryOfBirth: formData.countryOfBirth,
+                    cityOfBirth: formData.cityOfBirth,
+                    citizenship: formData.citizenship,
+                    hasApprovedPetition: formData.hasApprovedPetition,
+                    approvedPetitionNumber: formData.approvedPetitionNumber,
+                    hasMastersDegree: formData.hasMastersDegree,
+                    universityName: formData.universityName,
+                    mastersGPA: formData.mastersGPA,
+                    mastersCompletionDate: formData.mastersCompletionDate,
+                    passportFilePath: `${formData.empId}_${formData.fullName.replace(/\s+/g, "")}.pdf`,
+                    degreeFilePath: formData.msDegreeFile
+                      ? `${formData.empId}_${formData.fullName.replace(/\s+/g, "")}_MasterDegree.pdf`
+                      : null,
+                  }),
+                ],
+                { type: "application/json" }
+              )
+            );
       formDataToSend.append("passportFile", formData.passportFile);
       if (formData.msDegreeFile) {
         formDataToSend.append("msDegreeFile", formData.msDegreeFile);
@@ -248,7 +248,7 @@ const VisaApplicationForm = () => {
         formDataToSend,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }

@@ -1,4 +1,4 @@
-/*package com.visa.demo.controller;
+package com.visa.demo.controller;
 
 import com.visa.demo.model.LoginRequest;
 import com.visa.demo.model.Employee;
@@ -69,7 +69,6 @@ public class AuthController {
     }
 }
 
- */
 
 
 

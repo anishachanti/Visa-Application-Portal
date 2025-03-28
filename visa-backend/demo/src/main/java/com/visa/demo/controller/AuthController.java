@@ -43,29 +43,53 @@ public class AuthController {
 
             Optional<Employee> employeeOpt = employeeRepository.findByEmpId(loginRequest.getEmpId());
 
+            // ✅ Step 3: Add Debugging Logs
             if (employeeOpt.isPresent()) {
                 Employee employee = employeeOpt.get();
-                String role = employee.getRole();  // Get role from DB
+                System.out.println("✅ Employee Found: " + employee.getEmpId());
+                System.out.println("🔹 Role: " + employee.getRole());
+                System.out.println("🔹 Password (Hashed in DB): " + employee.getPassword());
 
-                // ✅ Check if this employee is a reporting manager
-                boolean isManager = employeeRepository.existsByReportingManagerId(employee.getEmpId());
-                if (isManager) {
-                    role = "MANAGER";  // ✅ Dynamically assign MANAGER role
+                // ✅ Check if Password Matches
+                if (!passwordEncoder.matches(loginRequest.getPassword(), employee.getPassword())) {
+                    System.out.println("❌ Incorrect Password for Employee: " + employee.getEmpId());
+                    return ResponseEntity.status(401).body("❌ Invalid Password");
+                } else {
+                    System.out.println("✅ Password Matched for Employee: " + employee.getEmpId());
                 }
 
-                String token = jwtUtil.generateToken(employee.getEmpId());
-
-                return ResponseEntity.ok(Map.of(
-                        "token", token,
-                        "role", role,
-                        "empId", employee.getEmpId()
-                ));
+            } else {
+                System.out.println("❌ Employee NOT FOUND in Database: " + loginRequest.getEmpId());
+                return ResponseEntity.status(401).body("❌ Invalid Employee ID or Password.");
             }
+
+            Employee employee = employeeOpt.get();
+            String role = employee.getRole();
+
+            // ✅ Fix Role Assignment
+            boolean isManager = employeeRepository.existsByReportingManagerId(employee.getEmpId());
+            boolean isVisaTeam = "VISA_TEAM".equals(employee.getRole());
+
+            if (isManager) {
+                role = "MANAGER";
+            } else if (isVisaTeam) {
+                role = "VISA_TEAM";
+            }
+
+            System.out.println("✅ Final Assigned Role: " + role);
+
+            String token = jwtUtil.generateToken(employee.getEmpId());
+
+            return ResponseEntity.ok(Map.of(
+                    "token", token,
+                    "role", role,
+                    "empId", employee.getEmpId()
+            ));
+
         } catch (Exception ex) {
+            System.out.println("❌ Exception Occurred During Login: " + ex.getMessage());
             return ResponseEntity.status(401).body("❌ Invalid Employee ID or Password.");
         }
-
-        return ResponseEntity.status(401).body("❌ Authentication failed.");
     }
 }
 

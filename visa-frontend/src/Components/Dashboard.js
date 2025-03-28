@@ -21,7 +21,11 @@ const Dashboard = () => {
     }
 
     setUserId(storedUserId || "Unknown User");
-    setRole(storedRole || "EMPLOYEE");
+    if (storedRole) {
+      setRole(storedRole);
+    } else {
+      setRole("EMPLOYEE");
+    }
 
     axios
       .get("http://localhost:9090/api/dashboard", {
@@ -66,6 +70,17 @@ const Dashboard = () => {
         </Container>
       )}
 
+      {role === "VISA_TEAM" && (
+        <Button
+          variant="info"
+          className="fw-bold"
+          style={{ fontSize: "1.2rem", padding: "12px 24px" }}
+          onClick={() => navigate("/visa-team-dashboard")}
+        >
+          Visa Team Dashboard
+        </Button>
+      )}
+
       <Container className="d-flex justify-content-center align-items-center min-vh-50 mt-4">
         <Card
           style={{
@@ -87,7 +102,7 @@ const Dashboard = () => {
               <p className="mt-3">
                 <strong>User ID:</strong> {userId}
                 <br />
-                <strong>Role:</strong> {role === "MANAGER" ? "Reporting Manager" : "Employee"}
+                <strong>Role:</strong> {role === "MANAGER" ? "Reporting Manager" : role === "VISA_TEAM" ? "Visa Team Member" : "Employee"}
               </p>
             )}
 

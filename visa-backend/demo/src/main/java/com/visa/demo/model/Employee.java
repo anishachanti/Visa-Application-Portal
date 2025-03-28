@@ -17,8 +17,8 @@ public class Employee {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private double grade;
+    @Column(nullable = true)
+    private Double grade;
 
     @Column(nullable = true)
     private String reportingManagerId;
@@ -71,7 +71,6 @@ public class Employee {
     }
 
 }
-
 
 
 

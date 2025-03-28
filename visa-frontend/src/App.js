@@ -4,6 +4,7 @@ import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
 import VisaApplicationForm from "./Components/VisaApplicationForm";
 import ReportingManagerDashboard from "./Components/ReportingManagerDashboard";
+import VisaProcessingDashboard from "./Components/VisaProcessingDashboard";
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path="/apply-visa" element={<PrivateRoute><VisaApplicationForm /></PrivateRoute>} />
         <Route path="/manager-dashboard" element={<PrivateRoute><ReportingManagerDashboard /></PrivateRoute>} /> {/* ✅ Added Manager Dashboard */}
+        <Route path="/visa-team-dashboard" element={<PrivateRoute><VisaProcessingDashboard /></PrivateRoute>} />  {/* ✅ Added Visa Team Dashboard */}
       </Routes>
     </Router>
   );

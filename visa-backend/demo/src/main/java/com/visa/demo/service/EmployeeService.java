@@ -20,24 +20,33 @@ public class EmployeeService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String empId) throws UsernameNotFoundException {
         Optional<Employee> employee = employeeRepository.findByEmpId(empId);
+
         if (employee.isEmpty()) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("❌ User not found with Employee ID: " + empId);
         }
 
-        boolean isManager = employeeRepository.existsByReportingManagerId(empId);
 
-        String role = isManager ? "MANAGER" : "EMPLOYEE";
+        boolean isManager = employeeRepository.existsByReportingManagerId(employee.get().getEmpId());
 
-        return User.withUsername(employee.get().getEmpId())  // ✅ FIXED
-                .password(employee.get().getPassword())  // ✅ FIXED
-                .authorities(role)
+        String role = employee.get().getRole();
+
+        if (role == null) {
+            role = "EMPLOYEE"; // ✅ Set default role if NULL
+        }
+        if (isManager && !"VISA_TEAM".equals(role)) {
+            role = "MANAGER"; // ✅ Only override if NOT a VISA_TEAM member
+        }
+
+        return User.withUsername(employee.get().getEmpId())
+                .password(employee.get().getPassword())
+                .authorities("ROLE_" + role.toUpperCase())
                 .build();
     }
 
 
+
 }
 
- 
 
 
 
